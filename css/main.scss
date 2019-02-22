@@ -1,3 +1,4 @@
+// this is an object within SASS, which can hold different variables such as COLORS, sizing properties, etc.
 $colors: (
   primary: #005dff,
   primary-light: lighten(#005dff, 40%),
@@ -5,14 +6,22 @@ $colors: (
   accent: #fff6bb
 );
 
+// regular variables being defined for use here. ensures consistency where these particular variables are used.
+// It can be painful to change all the hardcoded padding values all at once.
 $padding: 15px;
 $borders: 15px;
 
+// For the sake of the tutorial, the author decided to simplify the color calling by creating a color get function.
+// User provides color name as an arg, and then the function returns the specified color name.
 @function color($color-name) {
   @return map-get($colors, $color-name);
 }
 
 $desktop: 840px;
+
+// mixins. where things get doicey
+// mixin here was defined so that we can apply desktop responsiveness to key elements.
+// syntax here wylin b.
 
 @mixin desktop {
   @media (min-width: #{$desktop}) {
@@ -25,6 +34,8 @@ html {
   height: 100%;
 }
 
+// nesting css rather than having to specify outside in all the damn time!!!
+
 body {
   font-family: 'Montserrat', sans-serif;
   margin: 0;
@@ -36,7 +47,7 @@ body {
     height: 100%;
     position: absolute;
     z-index: -1;
-
+    // mixin inclusion. changing the way that the background looks. this is done with the help of clip path.
     @include desktop {
       clip-path: polygon(0 0, 75% 0, 55% 100%, 0% 100%);
     }
@@ -49,7 +60,7 @@ body {
     text-transform: uppercase;
   }
 }
-
+// grid system used here. will have to familiarize myself more with this grid.
 main {
   @include desktop {
     display: grid;
@@ -64,7 +75,7 @@ main {
     border-radius: $borders;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     width: 80%;
-
+    // more elegant way to include media queries as one can see.
     @include desktop {
       grid-area: card;
       height: fit-content;
@@ -72,7 +83,7 @@ main {
       margin: 1em;
     }
   }
-
+  // peep this ne$ting my dude
   ul {
     list-style-type: none;
     margin: 0;
@@ -132,7 +143,7 @@ main {
       text-align: center;
       margin: 50px auto 0 auto;
       padding: $padding;
-
+      // SASS lets you do math on variables!
       @include desktop {
         display: inline-block;
         padding: $padding $padding * 4;
